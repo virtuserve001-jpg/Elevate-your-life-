@@ -16,6 +16,7 @@ jobs:
         run: |
           unzip -o EYL_project.zip -d .
           shopt -s dotglob
+          rm -rf EYL/.github
           mv EYL/* .
           rmdir EYL
 
