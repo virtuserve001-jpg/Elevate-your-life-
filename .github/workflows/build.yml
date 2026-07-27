@@ -639,69 +639,67 @@ jobs:
           </shape>
           EOF_DOT
 
+          cat > app/src/main/res/drawable/card_surface.xml << 'EOF_CARD_BG'
+          <?xml version="1.0" encoding="utf-8"?>
+          <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+              <solid android:color="@color/eyl_surface" />
+              <corners android:radius="14dp" />
+          </shape>
+          EOF_CARD_BG
+
           cat > app/src/main/res/layout/item_task.xml << 'EOF_ITEM_TASK'
           <?xml version="1.0" encoding="utf-8"?>
-          <com.google.android.material.card.MaterialCardView
-              xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res/res-auto"
+          <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:padding="14dp"
+              android:gravity="center_vertical"
               android:layout_marginBottom="8dp"
-              app:cardBackgroundColor="@color/eyl_surface"
-              app:cardCornerRadius="14dp"
-              app:cardElevation="0dp"
-              app:strokeWidth="0dp">
+              android:background="@drawable/card_surface">
+
+              <TextView
+                  android:id="@+id/textTaskStatusIcon"
+                  android:layout_width="28dp"
+                  android:layout_height="wrap_content"
+                  android:textSize="18sp"
+                  android:gravity="center" />
 
               <LinearLayout
-                  android:layout_width="match_parent"
+                  android:layout_width="0dp"
                   android:layout_height="wrap_content"
-                  android:orientation="horizontal"
-                  android:padding="14dp"
-                  android:gravity="center_vertical">
+                  android:layout_weight="1"
+                  android:orientation="vertical"
+                  android:layout_marginStart="10dp">
 
                   <TextView
-                      android:id="@+id/textTaskStatusIcon"
-                      android:layout_width="28dp"
-                      android:layout_height="wrap_content"
-                      android:textSize="18sp"
-                      android:gravity="center" />
-
-                  <LinearLayout
-                      android:layout_width="0dp"
-                      android:layout_height="wrap_content"
-                      android:layout_weight="1"
-                      android:orientation="vertical"
-                      android:layout_marginStart="10dp">
-
-                      <TextView
-                          android:id="@+id/textTaskTitle"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:textSize="16sp"
-                          android:textColor="@color/eyl_ash"
-                          android:textStyle="bold" />
-
-                      <TextView
-                          android:id="@+id/textTaskMeta"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:textSize="12sp"
-                          android:textColor="#8A8F9C" />
-                  </LinearLayout>
-
-                  <Button
-                      android:id="@+id/buttonTaskAction"
-                      style="@style/EylButton"
+                      android:id="@+id/textTaskTitle"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:minWidth="0dp"
-                      android:paddingStart="16dp"
-                      android:paddingEnd="16dp"
-                      android:textSize="13sp"
-                      android:text="Start" />
+                      android:textSize="16sp"
+                      android:textColor="@color/eyl_ash"
+                      android:textStyle="bold" />
 
+                  <TextView
+                      android:id="@+id/textTaskMeta"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:textSize="12sp"
+                      android:textColor="#8A8F9C" />
               </LinearLayout>
-          </com.google.android.material.card.MaterialCardView>
+
+              <Button
+                  android:id="@+id/buttonTaskAction"
+                  style="@style/EylButton"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:minWidth="0dp"
+                  android:paddingStart="16dp"
+                  android:paddingEnd="16dp"
+                  android:textSize="13sp"
+                  android:text="Start" />
+
+          </LinearLayout>
           EOF_ITEM_TASK
 
           python3 - << 'EOF_MAIN_ACTIVITY_PATCH'
