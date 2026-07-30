@@ -878,14 +878,6 @@ jobs:
               "import android.widget.*\nimport androidx.core.content.ContextCompat"
           )
           content = content.replace(
-              "    private lateinit var containerOptionalTasks: LinearLayout",
-              "    private lateinit var containerOptionalTasks: LinearLayout\n    private lateinit var dotFajr: View\n    private lateinit var dotDhuhr: View\n    private lateinit var dotAsr: View\n    private lateinit var dotMaghrib: View\n    private lateinit var dotIsha: View"
-          )
-          content = content.replace(
-              "        containerOptionalTasks = findViewById(R.id.containerOptionalTasks)",
-              "        containerOptionalTasks = findViewById(R.id.containerOptionalTasks)\n        dotFajr = findViewById(R.id.dotFajr)\n        dotDhuhr = findViewById(R.id.dotDhuhr)\n        dotAsr = findViewById(R.id.dotAsr)\n        dotMaghrib = findViewById(R.id.dotMaghrib)\n        dotIsha = findViewById(R.id.dotIsha)"
-          )
-          content = content.replace(
               '''    private fun renderTasks(allTasks: List<Task>) {
               val must = allTasks.filter { it.category == TaskCategory.MUST }
               val optional = allTasks.filter { it.category == TaskCategory.OPTIONAL }
@@ -903,13 +895,14 @@ jobs:
               "    private fun buildTaskRow(task: Task): View {",
               '''    private fun updateDayArc(mustTasks: List<Task>) {
               val dots = mapOf(
-                  MustTaskType.FAJR to dotFajr,
-                  MustTaskType.DHUHR to dotDhuhr,
-                  MustTaskType.ASR to dotAsr,
-                  MustTaskType.MAGHRIB to dotMaghrib,
-                  MustTaskType.ISHA to dotIsha
+                  MustTaskType.FAJR to R.id.dotFajr,
+                  MustTaskType.DHUHR to R.id.dotDhuhr,
+                  MustTaskType.ASR to R.id.dotAsr,
+                  MustTaskType.MAGHRIB to R.id.dotMaghrib,
+                  MustTaskType.ISHA to R.id.dotIsha
               )
-              dots.forEach { (type, dot) ->
+              dots.forEach { (type, viewId) ->
+                  val dot = findViewById<View>(viewId) ?: return@forEach
                   val task = mustTasks.firstOrNull { it.mustTaskType == type }
                   val colorRes = when (task?.status) {
                       TaskStatus.COMPLETED -> R.color.eyl_gold
