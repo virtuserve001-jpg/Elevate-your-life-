@@ -14,7 +14,7 @@ jobs:
 
       - name: Unzip project
         run: |
-          unzip -o EYL_project.zip -d .
+          unzip -o EYL_project_fixed.zip -d .
           shopt -s dotglob
           rm -rf EYL/.github
           mv EYL/* .
